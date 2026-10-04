@@ -1,0 +1,134 @@
+:root {
+    --admin-bg: #f6f2eb;
+    --admin-ink: #33291f;
+    --admin-clay: #b5542f;
+    --admin-clay-dark: #8f3f20;
+
+    --bs-body-bg: var(--admin-bg);
+    --bs-body-color: var(--admin-ink);
+    --bs-link-color-rgb: 143, 63, 32;
+    --bs-link-hover-color-rgb: 181, 84, 47;
+}
+
+.btn-primary {
+    --bs-btn-bg: var(--admin-clay);
+    --bs-btn-border-color: var(--admin-clay);
+    --bs-btn-hover-bg: var(--admin-clay-dark);
+    --bs-btn-hover-border-color: var(--admin-clay-dark);
+    --bs-btn-active-bg: var(--admin-clay-dark);
+    --bs-btn-active-border-color: var(--admin-clay-dark);
+}
+
+.nav-pills {
+    --bs-nav-pills-link-active-bg: var(--admin-ink);
+}
+
+.form-check-input:checked {
+    background-color: var(--admin-clay);
+    border-color: var(--admin-clay);
+}
+
+.admin-nav {
+    background: #2f2420;
+}
+
+.admin-nav .navbar-brand {
+    color: #fff;
+    font-weight: 600;
+}
+
+.admin-nav .nav-link {
+    color: #e8dccb;
+}
+
+.admin-nav .nav-link:hover,
+.admin-nav .nav-link.active {
+    color: #fff;
+}
+
+.admin-nav .navbar-toggler {
+    border-color: rgba(255, 255, 255, .4);
+    filter: invert(1);
+}
+
+.admin-main {
+    padding-top: 1.75rem;
+    padding-bottom: 3rem;
+}
+
+.panel,
+.stat-card {
+    padding: 1.25rem;
+    background: #fff;
+    border: 1px solid #e4d8c6;
+    border-radius: 12px;
+}
+
+.stat-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-card__value {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.stat-card__label {
+    color: #7a6a5e;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: .2rem .65rem;
+    border-radius: 999px;
+    font-size: .8rem;
+    font-weight: 600;
+    vertical-align: middle;
+}
+
+.status-badge--new {
+    background: #fde8d9;
+    color: #9a3d12;
+}
+
+.status-badge--processing {
+    background: #fff3c9;
+    color: #7a5b00;
+}
+
+.status-badge--shipped {
+    background: #dcebd5;
+    color: #2f5a22;
+}
+
+.admin-thumb {
+    border-radius: 8px;
+    background: #efe4d3;
+}
+
+.variant-table {
+    min-width: 640px;
+}
+
+.variant-table .form-control-color {
+    width: 3.5rem;
+}
+
+.login-box {
+    max-width: 400px;
+    margin: 4rem auto;
+    padding: 2rem;
+    background: #fff;
+    border: 1px solid #e4d8c6;
+    border-radius: 14px;
+}
+
+.demo-credentials {
+    margin-bottom: 1.25rem;
+    padding: .85rem 1rem;
+    background: #fdf3df;
+    border: 1px dashed #d9b673;
+    border-radius: 10px;
+}
