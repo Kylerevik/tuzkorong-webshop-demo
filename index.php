@@ -62,7 +62,7 @@ require __DIR__ . '/includes/header.php';
 
 <section class="section" id="muhely" aria-labelledby="workshop-title">
     <div class="container">
-        <div class="row g-5 align-items-center">
+        <div class="row g-4 g-lg-5 align-items-center">
             <div class="col-lg-6">
                 <h2 id="workshop-title" class="section__title">Egy kis műhely a Mecsek lábánál</h2>
                 <p>A Tűzkorong a pécsi belváros mellett működik, két fazekassal. Minden edényt korongon húzunk, kézzel simítunk, majd kétszer égetünk: egyszer nyersen, egyszer mázzal.</p>

@@ -6,7 +6,7 @@
                 <p class="footer-brand">Tűzkorong Kerámiaműhely</p>
                 <p class="mb-0">Kézzel korongozott edények Pécsről. Minden darab a műhelyben készül, kőedény agyagból, ólommentes mázzal.</p>
             </div>
-            <div class="col-6 col-md-3">
+            <div class="col-12 col-sm-6 col-md-3">
                 <h2 class="footer-title">Elérhetőség</h2>
                 <address class="mb-0">
                     7621 Pécs, Tímár utca 11.<br>
@@ -14,7 +14,7 @@
                     <a href="mailto:muhely@tuzkorong.example">muhely@tuzkorong.example</a>
                 </address>
             </div>
-            <div class="col-6 col-md-4">
+            <div class="col-12 col-sm-6 col-md-4">
                 <h2 class="footer-title">Nyitvatartás</h2>
                 <p class="mb-0">Hétfőtől péntekig: 10:00 - 17:00<br>Szombat: 9:00 - 13:00<br>Vasárnap: zárva</p>
             </div>

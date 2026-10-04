@@ -11,7 +11,6 @@
     --radius: 14px;
     --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
 
-    --bs-body-bg: var(--cream);
     --bs-body-color: var(--ink);
     --bs-body-font-size: 1rem;
     --bs-link-color-rgb: 143, 63, 32;
@@ -20,6 +19,7 @@
 }
 
 body {
+    background: var(--cream) url("../img/speckle.svg");
     line-height: 1.65;
 }
 
@@ -167,13 +167,56 @@ h1, h2, h3 {
     text-align: center;
 }
 
+/* A belső oldalak tetején is megjelennek a korongozás gyűrűi */
+main {
+    position: relative;
+    isolation: isolate;
+    overflow-x: clip;
+}
+
+main:not(:has(.hero))::before {
+    content: "";
+    position: absolute;
+    top: -9rem;
+    right: -15rem;
+    z-index: -1;
+    width: 34rem;
+    height: 34rem;
+    background: url("../img/rings.svg") center / contain no-repeat;
+    opacity: .55;
+    pointer-events: none;
+}
+
 /* Szekciók */
 .section {
     padding: 2.5rem 0;
 }
 
 .section--tinted {
-    background: var(--sand);
+    position: relative;
+    background: var(--sand) url("../img/speckle.svg");
+}
+
+/* Hullámos mázszél a színezett szekció alján és tetején */
+.section--tinted::before,
+.section--tinted::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 22px;
+    background: url("../img/wave.svg") repeat-x;
+    background-size: 600px 22px;
+    pointer-events: none;
+}
+
+.section--tinted::before {
+    top: -21px;
+    transform: scaleY(-1);
+}
+
+.section--tinted::after {
+    bottom: -21px;
 }
 
 .section__title {
@@ -198,8 +241,26 @@ h1, h2, h3 {
 }
 
 .hero {
-    padding: 2.5rem 0 1.5rem;
-    background: linear-gradient(180deg, #f6ecdd 0%, var(--cream) 100%);
+    position: relative;
+    overflow: hidden;
+    padding: 2.5rem 0 3rem;
+    background: linear-gradient(180deg, #f3e4cf 0%, rgba(250, 246, 240, 0) 100%);
+}
+
+/* Máztócsák a nyitókép mögött */
+.hero::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: -5rem;
+    width: 26rem;
+    height: 26rem;
+    background: url("../img/hero-glaze.svg") center / contain no-repeat;
+    pointer-events: none;
+}
+
+.hero > .container {
+    position: relative;
 }
 
 .hero__title {
@@ -308,6 +369,7 @@ h1, h2, h3 {
     font-size: .8rem;
     letter-spacing: .04em;
     text-transform: uppercase;
+    overflow-wrap: anywhere;
 }
 
 .product-card__name {
@@ -779,13 +841,32 @@ h1, h2, h3 {
 
 /* Lábléc */
 .site-footer {
+    position: relative;
+    overflow: hidden;
     padding: 3rem 0 1.5rem;
     background: #2f2420;
     color: #e8dccb;
 }
 
+.site-footer::before {
+    content: "";
+    position: absolute;
+    right: -12rem;
+    bottom: -16rem;
+    width: 34rem;
+    height: 34rem;
+    background: url("../img/rings.svg") center / contain no-repeat;
+    opacity: .35;
+    pointer-events: none;
+}
+
+.site-footer > .container {
+    position: relative;
+}
+
 .site-footer a {
     color: #f3d9bd;
+    overflow-wrap: anywhere;
 }
 
 .footer-brand {
@@ -862,6 +943,12 @@ h1, h2, h3 {
     visibility: visible;
 }
 
+@media (max-width: 419.98px) {
+    .cart-link__text {
+        display: none;
+    }
+}
+
 @media (min-width: 768px) {
     .section {
         padding: 3.5rem 0;
@@ -872,7 +959,13 @@ h1, h2, h3 {
     }
 
     .hero {
-        padding: 3.5rem 0 2.5rem;
+        padding: 3.5rem 0 4rem;
+    }
+
+    .hero::before {
+        right: -4rem;
+        width: 34rem;
+        height: 34rem;
     }
 
     .hero__title {
@@ -900,6 +993,17 @@ h1, h2, h3 {
     .cart-line__total {
         min-width: 7rem;
         text-align: right;
+    }
+}
+
+@media (min-width: 992px) {
+    .hero::before {
+        top: 50%;
+        bottom: auto;
+        right: max(-3rem, calc(50% - 660px - 3rem));
+        width: 31rem;
+        height: 31rem;
+        transform: translateY(-50%);
     }
 }
 

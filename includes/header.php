@@ -31,9 +31,9 @@ $activePage = $activePage ?? '';
                 <img src="img/logo.svg" width="36" height="36" alt="">
                 <span>Tűzkorong</span>
             </a>
-            <a class="cart-link order-md-last ms-auto ms-md-3" href="cart.php">
+            <a class="cart-link order-md-last ms-auto ms-md-3" href="cart.php" aria-label="Kosár">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 7h12l1 13H5L6 7z"/><path d="M9 7V6a3 3 0 0 1 6 0v1"/></svg>
-                <span>Kosár</span>
+                <span class="cart-link__text">Kosár</span>
                 <span class="cart-badge" data-cart-count hidden>0</span>
             </a>
             <button class="navbar-toggler ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Menü megnyitása">
