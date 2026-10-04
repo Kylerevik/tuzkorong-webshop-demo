@@ -42,14 +42,14 @@ require __DIR__ . '/../includes/admin-header.php';
     <div class="col-lg-7">
         <h2 class="h5">Legutóbbi rendelések</h2>
         <div class="table-responsive">
-            <table class="table align-middle">
-                <thead><tr><th>Szám</th><th>Vevő</th><th>Összeg</th><th>Állapot</th></tr></thead>
+            <table class="table table-sm align-middle">
+                <thead><tr><th>Szám</th><th>Vevő</th><th class="d-none d-sm-table-cell text-nowrap">Összeg</th><th>Állapot</th></tr></thead>
                 <tbody>
                 <?php foreach ($latestOrders as $order): ?>
                     <tr>
-                        <td><a href="order.php?id=<?= (int) $order['id'] ?>"><?= e(order_number((int) $order['id'])) ?></a></td>
+                        <td class="text-nowrap"><a href="order.php?id=<?= (int) $order['id'] ?>"><?= e(order_number((int) $order['id'])) ?></a></td>
                         <td><?= e($order['customer_name']) ?></td>
-                        <td><?= format_price((int) $order['total']) ?></td>
+                        <td class="d-none d-sm-table-cell text-nowrap"><?= format_price((int) $order['total']) ?></td>
                         <td><span class="status-badge status-badge--<?= e($order['status']) ?>"><?= e(ORDER_STATUSES[$order['status']]) ?></span></td>
                     </tr>
                 <?php endforeach; ?>

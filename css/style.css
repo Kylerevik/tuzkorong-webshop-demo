@@ -743,6 +743,7 @@ main:not(:has(.hero))::before {
 
 .summary-line {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: .75rem;
     padding: .6rem 0;
@@ -756,8 +757,9 @@ main:not(:has(.hero))::before {
 
 .summary-line__info {
     display: flex;
-    flex: 1;
+    flex: 1 1 8rem;
     flex-direction: column;
+    min-width: 0;
 }
 
 .summary-line__label {
@@ -766,10 +768,19 @@ main:not(:has(.hero))::before {
 }
 
 .summary-line__total {
+    margin-left: auto;
     white-space: nowrap;
 }
 
 /* Pénztár */
+.trap {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
 .checkout-section {
     margin-bottom: 1.5rem;
     padding: 1.4rem;
@@ -946,6 +957,18 @@ main:not(:has(.hero))::before {
 @media (max-width: 419.98px) {
     .cart-link__text {
         display: none;
+    }
+}
+
+@media (max-width: 359.98px) {
+    .navbar-brand {
+        gap: .4rem;
+        font-size: 1.15rem;
+    }
+
+    .navbar-brand img {
+        width: 30px;
+        height: 30px;
     }
 }
 

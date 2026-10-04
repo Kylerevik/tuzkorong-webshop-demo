@@ -20,6 +20,8 @@
 }
 
 .nav-pills {
+    --bs-nav-link-color: var(--admin-clay-dark);
+    --bs-nav-link-hover-color: var(--admin-clay);
     --bs-nav-pills-link-active-bg: var(--admin-ink);
 }
 
@@ -106,6 +108,13 @@
 .admin-thumb {
     border-radius: 8px;
     background: #efe4d3;
+}
+
+/* Nagyon keskeny kijelzőn az összeg a rendelés részleteiben látszik */
+@media (max-width: 359.98px) {
+    .col-compact {
+        display: none;
+    }
 }
 
 .variant-table {

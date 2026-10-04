@@ -5,7 +5,7 @@ require_admin();
 
 if (is_post()) {
     csrf_verify();
-    $deleteId = (int) ($_POST['delete_id'] ?? 0);
+    $deleteId = input_int($_POST, 'delete_id');
 
     $stmt = db()->prepare('DELETE FROM products WHERE id = :id');
     $stmt->execute(['id' => $deleteId]);

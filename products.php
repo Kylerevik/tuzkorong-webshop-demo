@@ -4,12 +4,12 @@ require __DIR__ . '/includes/bootstrap.php';
 $categories = fetch_categories();
 $categorySlugs = array_column($categories, 'slug');
 
-$selectedCategory = $_GET['category'] ?? '';
+$selectedCategory = input_string($_GET, 'category');
 if (!in_array($selectedCategory, $categorySlugs, true)) {
     $selectedCategory = '';
 }
 
-$sort = $_GET['sort'] ?? 'default';
+$sort = input_string($_GET, 'sort');
 if (!isset(PRODUCT_SORTS[$sort])) {
     $sort = 'default';
 }
@@ -70,6 +70,7 @@ require __DIR__ . '/includes/header.php';
         <?php if ($products === []): ?>
         <p>Ebben a kategóriában jelenleg nincs elérhető termék. Nézzen vissza később, vagy <a href="products.php">böngéssze az összes darabot</a>.</p>
         <?php else: ?>
+        <h2 class="visually-hidden">Terméklista</h2>
         <div class="row g-3 g-lg-4">
             <?php foreach ($products as $product): ?>
             <div class="col-6 col-md-4 col-xl-3">

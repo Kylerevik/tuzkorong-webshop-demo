@@ -43,11 +43,11 @@ function admin_available_images(): array
 function validate_product_input(array $input, array $categoryIds, array $images): array
 {
     $clean = [
-        'name' => trim((string) ($input['name'] ?? '')),
-        'category_id' => (int) ($input['category_id'] ?? 0),
+        'name' => trim(input_string($input, 'name')),
+        'category_id' => input_int($input, 'category_id'),
         'base_price' => filter_var($input['base_price'] ?? '', FILTER_VALIDATE_INT),
-        'description' => trim((string) ($input['description'] ?? '')),
-        'image' => (string) ($input['image'] ?? ''),
+        'description' => trim(input_string($input, 'description')),
+        'image' => input_string($input, 'image'),
         'is_featured' => isset($input['is_featured']) ? 1 : 0,
         'is_active' => isset($input['is_active']) ? 1 : 0,
         'variants' => [],
@@ -90,10 +90,10 @@ function validate_variants(mixed $rows, int $basePrice): array
         if (!is_array($row)) {
             continue;
         }
-        $color = trim((string) ($row['color'] ?? ''));
-        $size = trim((string) ($row['size'] ?? ''));
-        $stockInput = trim((string) ($row['stock'] ?? ''));
-        $diffInput = trim((string) ($row['price_diff'] ?? ''));
+        $color = trim(input_string($row, 'color'));
+        $size = trim(input_string($row, 'size'));
+        $stockInput = trim(input_string($row, 'stock'));
+        $diffInput = trim(input_string($row, 'price_diff'));
 
         if ($color === '' && $size === '' && $stockInput === '' && $diffInput === '') {
             continue;
@@ -101,7 +101,7 @@ function validate_variants(mixed $rows, int $basePrice): array
 
         $stock = filter_var($stockInput, FILTER_VALIDATE_INT);
         $diff = $diffInput === '' ? 0 : filter_var($diffInput, FILTER_VALIDATE_INT);
-        $hex = (string) ($row['color_hex'] ?? '');
+        $hex = input_string($row, 'color_hex');
 
         if (mb_strlen($color) > 40 || mb_strlen($size) > 40) {
             return [[], 'A szín és a méret legfeljebb 40 karakter lehet.'];

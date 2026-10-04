@@ -62,6 +62,23 @@ function slugify(string $text): string
     return $slug !== '' ? $slug : 'termek';
 }
 
+/**
+ * Szöveges kérésparaméter; tömbként vagy más típusként érkező értékből üres szöveg lesz.
+ */
+function input_string(array $source, string $key): string
+{
+    $value = $source[$key] ?? '';
+
+    return is_string($value) ? $value : '';
+}
+
+function input_int(array $source, string $key): int
+{
+    $value = filter_var($source[$key] ?? null, FILTER_VALIDATE_INT);
+
+    return $value === false ? 0 : $value;
+}
+
 function csrf_token(): string
 {
     if (empty($_SESSION['csrf_token'])) {

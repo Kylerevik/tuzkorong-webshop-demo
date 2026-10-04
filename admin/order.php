@@ -3,7 +3,7 @@ require __DIR__ . '/../includes/bootstrap.php';
 require __DIR__ . '/../includes/auth.php';
 require_admin();
 
-$orderId = (int) ($_GET['id'] ?? 0);
+$orderId = input_int($_GET, 'id');
 
 $stmt = db()->prepare('SELECT * FROM orders WHERE id = :id');
 $stmt->execute(['id' => $orderId]);
@@ -16,7 +16,7 @@ if (!$order) {
 
 if (is_post()) {
     csrf_verify();
-    $newStatus = (string) ($_POST['status'] ?? '');
+    $newStatus = input_string($_POST, 'status');
 
     if (isset(ORDER_STATUSES[$newStatus])) {
         $update = db()->prepare('UPDATE orders SET status = :status WHERE id = :id');

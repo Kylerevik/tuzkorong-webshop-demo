@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 // Termék SVG kiszolgálása a kért máz színével: img.php?f=mecsek-bogre.svg&color=7f8f69
-$file = (string) ($_GET['f'] ?? '');
-$color = (string) ($_GET['color'] ?? '');
+$file = is_string($_GET['f'] ?? null) ? $_GET['f'] : '';
+$color = is_string($_GET['color'] ?? null) ? $_GET['color'] : '';
 $path = __DIR__ . '/img/products/' . $file;
 
 if (!preg_match('/^[a-z0-9-]+\.svg$/', $file) || !is_file($path)) {

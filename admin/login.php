@@ -11,7 +11,7 @@ $error = '';
 if (is_post()) {
     csrf_verify();
 
-    if (attempt_admin_login(trim((string) ($_POST['username'] ?? '')), (string) ($_POST['password'] ?? ''))) {
+    if (attempt_admin_login(trim(input_string($_POST, 'username')), input_string($_POST, 'password'))) {
         redirect('index.php');
     }
     $error = 'Hibás felhasználónév vagy jelszó.';

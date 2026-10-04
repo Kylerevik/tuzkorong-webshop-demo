@@ -6,15 +6,20 @@ class OrderException extends RuntimeException
 }
 
 /**
- * A böngészőből érkező kosár JSON-t [variáns azonosító => mennyiség] tömbbé alakítja.
+ * A böngészőből érkező kosár JSON-ja; null, ha nem tömb formátumú.
  */
-function parse_cart_input(string $json): array
+function decode_cart_json(string $json): ?array
 {
     $items = json_decode($json, true);
-    if (!is_array($items)) {
-        return [];
-    }
 
+    return is_array($items) && array_is_list($items) ? $items : null;
+}
+
+/**
+ * A kosár tételeit [variáns azonosító => mennyiség] tömbbé alakítja, az érvénytelen sorokat eldobja.
+ */
+function parse_cart_input(array $items): array
+{
     $cart = [];
     foreach ($items as $item) {
         if (!is_array($item)) {
@@ -97,12 +102,12 @@ function shipping_cost(array $method, int $subtotal): int
 function validate_checkout(array $input, array $shippingMethods): array
 {
     $clean = [
-        'name' => trim((string) ($input['name'] ?? '')),
-        'phone' => trim((string) ($input['phone'] ?? '')),
-        'zip' => trim((string) ($input['zip'] ?? '')),
-        'city' => trim((string) ($input['city'] ?? '')),
-        'street' => trim((string) ($input['street'] ?? '')),
-        'note' => trim((string) ($input['note'] ?? '')),
+        'name' => trim(input_string($input, 'name')),
+        'phone' => trim(input_string($input, 'phone')),
+        'zip' => trim(input_string($input, 'zip')),
+        'city' => trim(input_string($input, 'city')),
+        'street' => trim(input_string($input, 'street')),
+        'note' => trim(input_string($input, 'note')),
         'shipping_method_id' => (int) ($input['shipping_method_id'] ?? 0),
     ];
     $errors = [];

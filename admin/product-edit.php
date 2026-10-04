@@ -20,7 +20,7 @@ function variant_row(array $variant, string|int $index): string
         . '</tr>';
 }
 
-$id = (int) ($_GET['id'] ?? 0);
+$id = input_int($_GET, 'id');
 $existing = $id > 0 ? admin_fetch_product($id) : null;
 
 if ($id > 0 && $existing === null) {

@@ -1,7 +1,7 @@
 <?php
 require __DIR__ . '/includes/bootstrap.php';
 
-$product = fetch_product_by_slug((string) ($_GET['slug'] ?? ''));
+$product = fetch_product_by_slug(input_string($_GET, 'slug'));
 
 if ($product === null) {
     http_response_code(404);

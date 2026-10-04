@@ -3,7 +3,7 @@ require __DIR__ . '/../includes/bootstrap.php';
 require __DIR__ . '/../includes/auth.php';
 require_admin();
 
-$status = $_GET['status'] ?? '';
+$status = input_string($_GET, 'status');
 if (!isset(ORDER_STATUSES[$status])) {
     $status = '';
 }
@@ -35,18 +35,18 @@ require __DIR__ . '/../includes/admin-header.php';
 <div class="table-responsive">
     <table class="table table-hover align-middle">
         <thead>
-            <tr><th>Szám</th><th>Időpont</th><th>Vevő</th><th>Szállítás</th><th class="text-end">Összeg</th><th>Állapot</th><th></th></tr>
+            <tr><th>Szám</th><th class="d-none d-md-table-cell">Időpont</th><th>Vevő</th><th class="d-none d-lg-table-cell">Szállítás</th><th class="col-compact text-end">Összeg</th><th>Állapot</th><th class="d-none d-md-table-cell"></th></tr>
         </thead>
         <tbody>
         <?php foreach ($orders as $order): ?>
             <tr>
-                <td><strong><?= e(order_number((int) $order['id'])) ?></strong></td>
-                <td><?= e(date('Y. m. d. H:i', strtotime($order['created_at']))) ?></td>
-                <td><?= e($order['customer_name']) ?><br><small class="text-muted"><?= e($order['phone']) ?></small></td>
-                <td><?= e($order['shipping_method']) ?></td>
-                <td class="text-end"><?= format_price((int) $order['total']) ?></td>
+                <td class="text-nowrap"><a href="order.php?id=<?= (int) $order['id'] ?>"><strong><?= e(order_number((int) $order['id'])) ?></strong></a></td>
+                <td class="d-none d-md-table-cell"><?= e(date('Y. m. d. H:i', strtotime($order['created_at']))) ?></td>
+                <td><?= e($order['customer_name']) ?><small class="d-none d-md-block text-muted"><?= e($order['phone']) ?></small></td>
+                <td class="d-none d-lg-table-cell"><?= e($order['shipping_method']) ?></td>
+                <td class="col-compact text-end text-nowrap"><?= format_price((int) $order['total']) ?></td>
                 <td><span class="status-badge status-badge--<?= e($order['status']) ?>"><?= e(ORDER_STATUSES[$order['status']]) ?></span></td>
-                <td class="text-end"><a class="btn btn-sm btn-outline-secondary" href="order.php?id=<?= (int) $order['id'] ?>">Részletek</a></td>
+                <td class="d-none d-md-table-cell text-end"><a class="btn btn-sm btn-outline-secondary" href="order.php?id=<?= (int) $order['id'] ?>">Részletek</a></td>
             </tr>
         <?php endforeach; ?>
         </tbody>

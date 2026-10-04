@@ -135,11 +135,9 @@
 
     window.Cart = {
         items: () => items.map((item) => ({ ...item })),
-        count,
         add,
         setQuantity,
         remove,
-        clear,
         formatPrice,
         fetchLines,
     };

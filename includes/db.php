@@ -24,7 +24,8 @@ function db(): PDO
             ]
         );
     } catch (PDOException $e) {
-        error_log('Adatbázis-kapcsolati hiba: ' . $e->getMessage());
+        // A teljes üzenet hostnevet és felhasználónevet is tartalmazhat, ezért csak a hibakódok kerülnek a naplóba
+        error_log('Adatbázis-kapcsolati hiba (SQLSTATE ' . $e->getCode() . ', kód ' . ($e->errorInfo[1] ?? '-') . ')');
         http_response_code(503);
         exit('Az oldal átmenetileg nem érhető el. Kérjük, próbálja meg később.');
     }

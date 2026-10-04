@@ -15,9 +15,16 @@ $errors = [];
 
 if (is_post()) {
     csrf_verify();
+
+    // Csak robotok töltik ki a vevő elől rejtett mezőt
+    if (($_POST['website'] ?? '') !== '') {
+        http_response_code(400);
+        exit('Érvénytelen kérés.');
+    }
+
     [$values, $errors] = validate_checkout($_POST, $shippingMethods);
 
-    $cart = parse_cart_input((string) ($_POST['cart'] ?? ''));
+    $cart = parse_cart_input(decode_cart_json(input_string($_POST, 'cart')) ?? []);
     if ($cart === []) {
         $errors['cart'] = 'A kosara üres, ezért nem tudjuk rögzíteni a rendelést.';
     }
@@ -65,6 +72,10 @@ require __DIR__ . '/includes/header.php';
         <form class="row g-4" method="post" action="checkout.php" data-checkout-form hidden>
             <?= csrf_field() ?>
             <input type="hidden" name="cart" value="" data-cart-field>
+            <div class="trap" aria-hidden="true">
+                <label for="website">Ezt a mezőt hagyja üresen</label>
+                <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+            </div>
 
             <div class="col-lg-7">
                 <fieldset class="checkout-section">
@@ -79,7 +90,7 @@ require __DIR__ . '/includes/header.php';
                         <div class="col-12">
                             <label class="form-label" for="phone">Telefonszám</label>
                             <input class="<?= field_class($errors, 'phone') ?>" type="tel" id="phone" name="phone" value="<?= e($values['phone']) ?>"
-                                   required pattern="\+?[0-9 ()\/\-]{7,20}" maxlength="20" autocomplete="tel" placeholder="+36 30 555 0123">
+                                   required pattern="\+?[0-9 \(\)\/\-]{7,20}" maxlength="20" autocomplete="tel" placeholder="+36 30 555 0123">
                             <?= field_error($errors, 'phone') ?>
                         </div>
                     </div>
@@ -108,14 +119,14 @@ require __DIR__ . '/includes/header.php';
                 <fieldset class="checkout-section" data-address-fields<?= $addressRequired ? '' : ' hidden' ?>>
                     <legend class="checkout-section__title">Szállítási cím</legend>
                     <div class="row g-3">
-                        <div class="col-4 col-md-3">
+                        <div class="col-12 col-sm-4 col-md-3">
                             <label class="form-label" for="zip">Irányítószám</label>
                             <input class="<?= field_class($errors, 'zip') ?>" type="text" id="zip" name="zip" value="<?= e($values['zip']) ?>"
                                    pattern="[0-9]{4}" maxlength="4" inputmode="numeric" autocomplete="postal-code"
                                    <?= $addressRequired ? 'required' : '' ?> data-address-input>
                             <?= field_error($errors, 'zip') ?>
                         </div>
-                        <div class="col-8 col-md-9">
+                        <div class="col-12 col-sm-8 col-md-9">
                             <label class="form-label" for="city">Település</label>
                             <input class="<?= field_class($errors, 'city') ?>" type="text" id="city" name="city" value="<?= e($values['city']) ?>"
                                    maxlength="60" autocomplete="address-level2" <?= $addressRequired ? 'required' : '' ?> data-address-input>

@@ -12,7 +12,14 @@ if (!is_post()) {
     exit;
 }
 
-$cart = parse_cart_input((string) file_get_contents('php://input'));
+$items = decode_cart_json((string) file_get_contents('php://input'));
+if ($items === null) {
+    http_response_code(400);
+    echo json_encode(['error' => 'A kosár adatai hibás formátumúak.']);
+    exit;
+}
+
+$cart = parse_cart_input($items);
 
 try {
     $lines = fetch_cart_lines(db(), $cart);
